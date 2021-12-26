@@ -1,0 +1,83 @@
+name: Build and test 🏗️
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.4.0
+      - name: Cache gradle related files 🗄️
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Set up JDK 11 ⚙️
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Building project 🛠️
+        run: ./gradlew compileJava
+  check:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Cache gradle related files 🗄️
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Set up JDK 11 ⚙️
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Running Checkstyle 🧪
+        run: ./gradlew checkstyleMain checkstyleTest
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Cache gradle related files 🗄️
+        uses: actions/cache@v2.1.7
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Cache SonarCloud packages 🗄️
+        uses: actions/cache@v2.1.7
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Set up JDK 11 ⚙️
+        uses: actions/setup-java@v2.5.0
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Running tests 🧪
+        run: ./gradlew test
+      - name: Running analysis in SonarCloud 📊
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube
