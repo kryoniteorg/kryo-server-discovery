@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation("io.fabric8:kubernetes-client:5.11.0")
-    compileOnly("com.velocitypowered:velocity-api:3.0.1")
+    compileOnly("com.velocitypowered:velocity-api:3.1.0")
     annotationProcessor ("com.velocitypowered:velocity-api:3.0.1")
 
     compileOnly("org.projectlombok:lombok:1.18.22")
