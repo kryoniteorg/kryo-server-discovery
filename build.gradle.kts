@@ -2,6 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.1"
+    id("org.sonarqube") version "3.3"
     jacoco
 }
 
@@ -47,6 +48,14 @@ java {
 tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "citybuild_server-discovery"
+        property "sonar.organization", "citybuild"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
 
