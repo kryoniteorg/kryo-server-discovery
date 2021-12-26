@@ -15,10 +15,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Set up JDK 11 ⚙️
+      - name: Set up JDK 17 ⚙️
         uses: actions/setup-java@v2.5.0
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
       - name: Building project 🛠️
         run: ./gradlew compileJava
@@ -39,10 +39,10 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Set up JDK 11 ⚙️
+      - name: Set up JDK 17 ⚙️
         uses: actions/setup-java@v2.5.0
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
       - name: Running Checkstyle 🧪
         run: ./gradlew checkstyleMain checkstyleTest
@@ -69,10 +69,10 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Set up JDK 11 ⚙️
+      - name: Set up JDK 17 ⚙️
         uses: actions/setup-java@v2.5.0
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
       - name: Running tests 🧪
         run: ./gradlew test
