@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.1"
     id("org.sonarqube") version "3.3"
+    checkstyle
     jacoco
 }
 
@@ -49,6 +50,11 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
     }
+}
+
+checkstyle {
+    toolVersion = "9.2"
+    config = project.resources.text.fromUri("https://kryonite.org/checkstyle.xml")
 }
 
 sonarqube {
