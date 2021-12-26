@@ -53,9 +53,9 @@ tasks.jacocoTestReport {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "citybuild_server-discovery"
-        property "sonar.organization", "citybuild"
-        property "sonar.host.url", "https://sonarcloud.io"
+        property("sonar.projectKey", "citybuild_server-discovery")
+        property("sonar.organization", "citybuild")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
