@@ -1,4 +1,4 @@
-name: Build and test 🏗️
+name: Gradle Wrapper Validation ✅
 
 on: [pull_request]
 
