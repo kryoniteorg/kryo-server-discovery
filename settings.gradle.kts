@@ -1,2 +1,2 @@
-rootProject.name = "server-discovery"
+rootProject.name = "kryo-server-discovery"
 

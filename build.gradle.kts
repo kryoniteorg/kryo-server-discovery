@@ -7,7 +7,7 @@ plugins {
     jacoco
 }
 
-group = "net.citybuild"
+group = "org.kryonite"
 version = "0.1.0"
 
 repositories {
@@ -59,8 +59,8 @@ checkstyle {
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "citybuild_server-discovery")
-        property("sonar.organization", "citybuild")
+        property("sonar.projectKey", "kryonitelabs_kryo-server-discovery")
+        property("sonar.organization", "kryonitelabs")
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }

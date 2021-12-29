@@ -1,4 +1,4 @@
-package net.citybuild.serverdiscovery.serverdiscovery;
+package org.kryonite.kryoserverdiscovery.serverdiscovery;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.mock;

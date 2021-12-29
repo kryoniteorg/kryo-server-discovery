@@ -1,4 +1,4 @@
-package net.citybuild.serverdiscovery;
+package org.kryonite.kryoserverdiscovery;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
@@ -7,17 +7,17 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import java.util.Timer;
-import net.citybuild.serverdiscovery.listener.PlayerJoinListener;
-import net.citybuild.serverdiscovery.serverdiscovery.ServerDiscoveryTask;
+import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
+import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
-@Plugin(id = "serverdiscovery", name = "Server Discovery", version = "0.1.0-SNAPSHOT")
-public class ServerDiscoveryPlugin {
+@Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "0.1.0")
+public class KryoServerDiscoveryPlugin {
 
   private final Timer timer = new Timer(true);
   private final ProxyServer server;
 
   @Inject
-  public ServerDiscoveryPlugin(ProxyServer server) {
+  public KryoServerDiscoveryPlugin(ProxyServer server) {
     this.server = server;
   }
 

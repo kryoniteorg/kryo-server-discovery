@@ -1,4 +1,4 @@
-package net.citybuild.serverdiscovery.serverdiscovery;
+package org.kryonite.kryoserverdiscovery.serverdiscovery;
 
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
