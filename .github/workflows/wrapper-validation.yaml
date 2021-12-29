@@ -1,0 +1,7 @@
+name: Build and test 🏗️
+
+on: [pull_request]
+
+jobs:
+  build-and-test:
+    uses: kryonitelabs/.github/.github/workflows/wrapper-validation.yaml@main

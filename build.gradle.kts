@@ -31,8 +31,8 @@ dependencies {
     testImplementation("com.velocitypowered:velocity-api:3.0.1")
     testAnnotationProcessor ("com.velocitypowered:velocity-api:3.0.1")
 
-    testCompileOnly("org.projectlombok:lombok:1.18.20")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
+    testCompileOnly("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
 }
 
 tasks.test {
