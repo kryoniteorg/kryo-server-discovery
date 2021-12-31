@@ -10,7 +10,7 @@ import java.util.Timer;
 import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
 import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
-@Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "0.1.0")
+@Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "1.0.0")
 public class KryoServerDiscoveryPlugin {
 
   private final Timer timer = new Timer(true);
