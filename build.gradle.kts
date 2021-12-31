@@ -3,12 +3,13 @@ plugins {
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("org.sonarqube") version "3.3"
+    id("io.freefair.lombok") version "6.3.0"
     checkstyle
     jacoco
 }
 
-group = "net.citybuild"
-version = "0.1.0"
+group = "org.kryonite"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -21,18 +22,12 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.1.0")
     annotationProcessor ("com.velocitypowered:velocity-api:3.0.1")
 
-    compileOnly("org.projectlombok:lombok:1.18.22")
-    annotationProcessor("org.projectlombok:lombok:1.18.22")
-
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
     testImplementation("org.mockito:mockito-junit-jupiter:4.2.0")
     testImplementation("com.velocitypowered:velocity-api:3.0.1")
     testAnnotationProcessor ("com.velocitypowered:velocity-api:3.0.1")
-
-    testCompileOnly("org.projectlombok:lombok:1.18.20")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
 }
 
 tasks.test {
@@ -53,14 +48,14 @@ tasks.jacocoTestReport {
 }
 
 checkstyle {
-    toolVersion = "9.2"
+    toolVersion = "9.2.1"
     config = project.resources.text.fromUri("https://kryonite.org/checkstyle.xml")
 }
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "citybuild_server-discovery")
-        property("sonar.organization", "citybuild")
+        property("sonar.projectKey", "kryonitelabs_kryo-server-discovery")
+        property("sonar.organization", "kryonitelabs")
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }

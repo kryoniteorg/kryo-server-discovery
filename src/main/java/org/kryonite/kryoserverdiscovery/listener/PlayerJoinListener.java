@@ -1,4 +1,4 @@
-package net.citybuild.serverdiscovery.listener;
+package org.kryonite.kryoserverdiscovery.listener;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.PlayerChooseInitialServerEvent;

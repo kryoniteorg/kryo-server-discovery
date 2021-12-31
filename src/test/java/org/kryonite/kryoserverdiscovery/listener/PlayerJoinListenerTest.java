@@ -1,4 +1,4 @@
-package net.citybuild.serverdiscovery.listener;
+package org.kryonite.kryoserverdiscovery.listener;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
