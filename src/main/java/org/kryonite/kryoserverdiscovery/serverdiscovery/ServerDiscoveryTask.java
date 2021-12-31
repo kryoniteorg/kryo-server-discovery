@@ -8,6 +8,7 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import java.net.InetSocketAddress;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,22 +35,27 @@ public class ServerDiscoveryTask extends TimerTask {
 
       Set<ServerInfo> serverInfo = new HashSet<>();
       for (Namespace namespace : list.getItems()) {
-        try {
-          PodList podList = kubernetesClient.pods()
-              .inNamespace(namespace.getMetadata().getName())
-              .withLabel(LABEL_NAME, "true")
-              .list();
-
-          serverInfo.addAll(getServerInfo(podList.getItems()));
-        } catch (Exception exception) {
-          log.error("Failed to get servers", exception);
-        }
+        serverInfo.addAll(getMinecraftServersFromNamespace(namespace));
       }
 
       proxyServer.getAllServers().forEach(server -> proxyServer.unregisterServer(server.getServerInfo()));
       serverInfo.forEach(proxyServer::registerServer);
     } catch (Exception exception) {
       log.error("Failed to get servers", exception);
+    }
+  }
+
+  private Set<ServerInfo> getMinecraftServersFromNamespace(Namespace namespace) {
+    try {
+      PodList podList = kubernetesClient.pods()
+          .inNamespace(namespace.getMetadata().getName())
+          .withLabel(LABEL_NAME, "true")
+          .list();
+
+      return getServerInfo(podList.getItems());
+    } catch (Exception exception) {
+      log.error("Failed to get servers", exception);
+      return Collections.emptySet();
     }
   }
 
