@@ -1,4 +1,9 @@
 # kryo-server-discovery
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-server-discovery&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-server-discovery)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-server-discovery&metric=coverage)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-server-discovery)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-server-discovery&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-server-discovery)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-server-discovery&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-server-discovery)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kryonitelabs_kryo-server-discovery&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kryonitelabs_kryo-server-discovery)
 
 This plugin connects minecraft servers to a velocity proxy within Kubernetes.
 
