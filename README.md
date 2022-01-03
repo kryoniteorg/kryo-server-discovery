@@ -1,4 +1,4 @@
-# server-discovery
+# kryo-server-discovery
 
 This plugin connects minecraft servers to a velocity proxy within Kubernetes.
 
