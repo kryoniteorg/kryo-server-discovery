@@ -21,7 +21,7 @@ dependencies {
     val junitVersion = "5.8.2"
     val velocityVersion = "3.1.0"
 
-    implementation("io.fabric8:kubernetes-client:5.11.1")
+    implementation("io.fabric8:kubernetes-client:5.11.2")
     compileOnly("com.velocitypowered:velocity-api:$velocityVersion")
     annotationProcessor("com.velocitypowered:velocity-api:$velocityVersion")
 
