@@ -4,4 +4,4 @@ on: [pull_request]
 
 jobs:
   build-and-test:
-    uses: kryonitelabs/.github/.github/workflows/wrapper-validation.yaml@main
+    uses: kryoniteorg/.github/.github/workflows/wrapper-validation.yaml@main
