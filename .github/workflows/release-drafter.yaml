@@ -13,4 +13,4 @@ on:
 
 jobs:
   compile-and-deploy-docs:
-    uses: kryonitelabs/.github/.github/workflows/release-drafter.yaml@main
+    uses: kryoniteorg/.github/.github/workflows/release-drafter.yaml@main

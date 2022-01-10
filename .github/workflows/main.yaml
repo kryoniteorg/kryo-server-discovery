@@ -4,6 +4,6 @@ on: [push]
 
 jobs:
   build-and-test:
-    uses: kryonitelabs/.github/.github/workflows/build-and-test.yaml@main
+    uses: kryoniteorg/.github/.github/workflows/build-and-test.yaml@main
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
