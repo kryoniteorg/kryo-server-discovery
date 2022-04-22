@@ -28,7 +28,7 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:1.7.36")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.4.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.5.1")
     testImplementation("com.velocitypowered:velocity-api:$velocityVersion")
     testAnnotationProcessor("com.velocitypowered:velocity-api:$velocityVersion")
 }
