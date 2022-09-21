@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    val junitVersion = "5.9.0"
+    val junitVersion = "5.9.1"
     val velocityVersion = "3.1.0"
 
     implementation("io.fabric8:kubernetes-client:5.12.2")
