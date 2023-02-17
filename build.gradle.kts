@@ -2,7 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("org.sonarqube") version "3.4.0.2513"
+    id("org.sonarqube") version "4.0.0.2929"
     id("io.freefair.lombok") version "6.5.1"
     checkstyle
     jacoco
