@@ -23,7 +23,7 @@ public class ServerDiscoveryTask extends TimerTask {
   private final ProxyServer proxyServer;
   private final DefaultKubernetesClient kubernetesClient;
   private final Map<String, String> configuration;
-  private final Set<String> discoveredServers = new HashSet<>();
+  private final Set<String> discoveredServers;
 
   @Override
   public void run() {
@@ -72,6 +72,7 @@ public class ServerDiscoveryTask extends TimerTask {
 
   private Set<ServerInfo> getServerInfos(List<Pod> pods) {
     return pods.stream()
+      .filter(pod -> pod.getStatus().getPodIP() != null) // TODO: replace this with a better solution to check if pod is ready
       .map(pod -> {
         List<ContainerPort> ports = pod.getSpec()
           .getContainers()
