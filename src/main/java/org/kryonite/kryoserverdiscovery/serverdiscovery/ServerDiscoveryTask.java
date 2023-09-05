@@ -85,7 +85,7 @@ public class ServerDiscoveryTask extends TimerTask {
         // Probably a misconfiguration if there is more than one container with a minecraft port
         if (ports.size() == 1) {
           ContainerPort port = ports.get(0);
-          return new ServerInfo(serverName, new InetSocketAddress(pod.getStatus().getPodIP(), port.getHostPort()));
+          return new ServerInfo(serverName, new InetSocketAddress(pod.getStatus().getPodIP(), port.getContainerPort()));
         }
 
         log.warn(String.format("None or multiple containers in pod '%s' have a port named 'minecraft', using default port 25565", pod.getMetadata().getName()));
