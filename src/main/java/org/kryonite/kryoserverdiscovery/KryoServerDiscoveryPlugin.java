@@ -47,7 +47,7 @@ public class KryoServerDiscoveryPlugin {
     timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this.configuration, this.discoveredServers), 1000, Long.parseLong(this.configuration.get("discover-task-interval-ms")));
 
     if (Boolean.parseBoolean(this.configuration.get("enable-join-listener"))) {
-      server.getEventManager().register(this, new PlayerJoinListener(server));
+      server.getEventManager().register(this, new PlayerJoinListener(this, server));
     }
   }
 
