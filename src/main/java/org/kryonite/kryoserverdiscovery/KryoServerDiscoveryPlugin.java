@@ -6,14 +6,13 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
+import lombok.extern.slf4j.Slf4j;
+import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
+import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
-
-import lombok.extern.slf4j.Slf4j;
-import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
-import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
 @Slf4j
 @Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "1.0.0")
@@ -30,6 +29,7 @@ public class KryoServerDiscoveryPlugin {
     configurationDefaults.put("discover-task-interval-ms", "1000");
     configurationDefaults.put("server-name-format", "k8s-%s");
   }
+
   @Inject
   public KryoServerDiscoveryPlugin(ProxyServer server) {
     this.server = server;

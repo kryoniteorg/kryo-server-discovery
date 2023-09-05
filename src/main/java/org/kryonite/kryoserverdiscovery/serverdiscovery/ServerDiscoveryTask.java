@@ -2,16 +2,17 @@ package org.kryonite.kryoserverdiscovery.serverdiscovery;
 
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.ServerInfo;
-import io.fabric8.kubernetes.api.model.*;
+import io.fabric8.kubernetes.api.model.ContainerPort;
+import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.NamespaceList;
+import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.kryonite.kryoserverdiscovery.KryoServerDiscoveryPlugin;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class ServerDiscoveryTask extends TimerTask {
       proxyServer
         .getAllServers()
         .stream()
-        .filter(server-> discoveredServers.remove(server.getServerInfo().getName()))
+        .filter(server -> discoveredServers.remove(server.getServerInfo().getName()))
         .forEach(server -> proxyServer.unregisterServer(server.getServerInfo()));
 
       serverInfo.forEach(info -> {

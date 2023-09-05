@@ -1,6 +1,6 @@
 name: Build and test 🏗️
 
-on: [push]
+on: [ push ]
 
 jobs:
   build-and-test:
