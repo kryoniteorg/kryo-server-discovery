@@ -23,8 +23,13 @@ public class KryoServerDiscoveryPlugin {
   private final ProxyServer server;
   private final Map<String, String> configuration = new HashMap<>();
 
-  private final Map<String, String> configurationDefaults = new HashMap<>();
+  private static final Map<String, String> configurationDefaults = new HashMap<>();
 
+  static {
+    configurationDefaults.put("enable-join-listener", "true");
+    configurationDefaults.put("discover-task-interval-ms", "1000");
+    configurationDefaults.put("server-name-format", "k8s-%s");
+  }
   @Inject
   public KryoServerDiscoveryPlugin(ProxyServer server) {
     this.server = server;
@@ -32,9 +37,7 @@ public class KryoServerDiscoveryPlugin {
 
   @Subscribe
   public void onInitialize(ProxyInitializeEvent event) {
-    this.configurationDefaults.put("enable-join-listener", "true");
-    this.configurationDefaults.put("discover-task-interval-ms", "1000");
-    this.configurationDefaults.put("server-name-format", "k8s-%s");
+
     this.loadConfiguration(System.getenv());
 
     log.info("Following configuration was parsed:");
@@ -52,7 +55,7 @@ public class KryoServerDiscoveryPlugin {
     return this.configuration.get(key);
   }
 
-  private void loadConfiguration(Map<String, String> configuration) {
+  public void loadConfiguration(Map<String, String> configuration) {
     Map<String, String> envDirectives = new HashMap<>();
     configuration.entrySet()
       .stream()
@@ -66,7 +69,7 @@ public class KryoServerDiscoveryPlugin {
         envDirectives.put(key, entry.getValue());
       });
 
-    this.configurationDefaults
+    configurationDefaults
       .keySet()
       .forEach(key -> this.configuration.put(key, envDirectives.getOrDefault(key, this.configurationDefaults.get(key))));
   }
