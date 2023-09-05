@@ -41,7 +41,7 @@ public class KryoServerDiscoveryPlugin {
     this.configuration.forEach((k, v) -> log.info(String.format("%s: %s", k, v)));
 
     DefaultKubernetesClient kubernetesClient = new DefaultKubernetesClient();
-    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient), 1000, Long.parseLong(this.configuration.get("discovery-task-period-ms")));
+    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this), 1000, Long.parseLong(this.configuration.get("discovery-task-period-ms")));
 
     if (Boolean.parseBoolean(this.configuration.get("enable-join-listener"))) {
       server.getEventManager().register(this, new PlayerJoinListener(server));

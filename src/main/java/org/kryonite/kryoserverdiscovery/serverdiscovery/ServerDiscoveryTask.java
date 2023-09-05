@@ -21,41 +21,55 @@ public class ServerDiscoveryTask extends TimerTask {
 
   private final ProxyServer proxyServer;
   private final DefaultKubernetesClient kubernetesClient;
+  private final KryoServerDiscoveryPlugin plugin;
+  private final Set<String> discoveredServers = new HashSet<>();
 
   @Override
   public void run() {
     try {
       NamespaceList list = kubernetesClient.namespaces()
-          .withLabel(LABEL_NAME, "true")
-          .list();
+        .withLabel(LABEL_NAME, "true")
+        .list();
 
       Set<ServerInfo> serverInfo = new HashSet<>();
       for (Namespace namespace : list.getItems()) {
-        serverInfo.addAll(getMinecraftServersFromNamespace(namespace));
+        serverInfo.addAll(getServerInfosOfNamespace(namespace));
       }
 
-      proxyServer.getAllServers().forEach(server -> proxyServer.unregisterServer(server.getServerInfo()));
-      serverInfo.forEach(proxyServer::registerServer);
+      proxyServer
+        .getAllServers()
+        .stream()
+        .filter(server-> discoveredServers.remove(server.getServerInfo().getName()))
+        .forEach(server -> proxyServer.unregisterServer(server.getServerInfo()));
+
+      serverInfo.forEach(info -> {
+        discoveredServers.add(info.getName());
+        proxyServer.registerServer(info);
+      });
     } catch (Exception exception) {
       log.error("Failed to get servers", exception);
     }
   }
 
-  private Set<ServerInfo> getMinecraftServersFromNamespace(Namespace namespace) {
+  private Set<ServerInfo> getServerInfosOfNamespace(Namespace namespace) {
     try {
-      PodList podList = kubernetesClient.pods()
-          .inNamespace(namespace.getMetadata().getName())
-          .withLabel(LABEL_NAME, "true")
-          .list();
+      List<Pod> podList = kubernetesClient.pods()
+        .inNamespace(namespace.getMetadata().getName())
+        .withLabel(LABEL_NAME, "true")
+        .list().getItems();
 
-      return getServerInfo(podList.getItems());
+      if (podList.isEmpty()) {
+        log.warn(String.format("Labeled namespace '%s' has no labeled pods!", namespace.getMetadata().getName()));
+      }
+
+      return getServerInfos(podList);
     } catch (Exception exception) {
       log.error("Failed to get servers", exception);
       return Collections.emptySet();
     }
   }
 
-  private Set<ServerInfo> getServerInfo(List<Pod> pods) {
+  private Set<ServerInfo> getServerInfos(List<Pod> pods) {
     return pods.stream()
       .map(pod -> {
         List<ContainerPort> ports = pod.getSpec()
