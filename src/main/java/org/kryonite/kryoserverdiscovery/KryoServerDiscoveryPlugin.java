@@ -6,13 +6,12 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
 import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
+import java.util.*;
 
 @Slf4j
 @Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "1.0.0")
@@ -22,6 +21,7 @@ public class KryoServerDiscoveryPlugin {
   private final ProxyServer server;
   private final Map<String, String> configuration = new HashMap<>();
 
+  private final Set<String> discoveredServers = new HashSet<>();
   private static final Map<String, String> configurationDefaults = new HashMap<>();
 
   static {
@@ -44,11 +44,15 @@ public class KryoServerDiscoveryPlugin {
     this.configuration.forEach((k, v) -> log.info(String.format("%s: %s", k, v)));
 
     DefaultKubernetesClient kubernetesClient = new DefaultKubernetesClient();
-    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this.configuration), 1000, Long.parseLong(this.configuration.get("discover-task-interval-ms")));
+    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this.configuration, this.discoveredServers), 1000, Long.parseLong(this.configuration.get("discover-task-interval-ms")));
 
     if (Boolean.parseBoolean(this.configuration.get("enable-join-listener"))) {
       server.getEventManager().register(this, new PlayerJoinListener(server));
     }
+  }
+
+  public Set<String> getDiscoveredServers() {
+    return new HashSet<>(discoveredServers);
   }
 
   public String getConfigEntry(String key) {
@@ -71,6 +75,6 @@ public class KryoServerDiscoveryPlugin {
 
     configurationDefaults
       .keySet()
-      .forEach(key -> this.configuration.put(key, envDirectives.getOrDefault(key, this.configurationDefaults.get(key))));
+      .forEach(key -> this.configuration.put(key, envDirectives.getOrDefault(key, configurationDefaults.get(key))));
   }
 }
