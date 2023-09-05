@@ -80,7 +80,7 @@ public class ServerDiscoveryTask extends TimerTask {
           .map(Optional::get)
           .toList();
 
-        String serverName = pod.getMetadata().getName();
+        String serverName = String.format(this.plugin.getConfigEntry("server-name-format"), pod.getMetadata().getName());
         // Probably a misconfiguration if there is more than one container with a minecraft port
         if (ports.size() == 1) {
           ContainerPort port = ports.get(0);
