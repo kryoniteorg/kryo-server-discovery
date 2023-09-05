@@ -35,7 +35,7 @@ public class KryoServerDiscoveryPlugin {
     this.configurationDefaults.put("enable-join-listener", "true");
     this.configurationDefaults.put("discover-task-interval-ms", "1000");
     this.configurationDefaults.put("server-name-format", "k8s-%s");
-    this.loadEnvironmentConfiguration();
+    this.loadConfiguration(System.getenv());
 
     log.info("Following configuration was parsed:");
     this.configuration.forEach((k, v) -> log.info(String.format("%s: %s", k, v)));
@@ -52,9 +52,9 @@ public class KryoServerDiscoveryPlugin {
     return this.configuration.get(key);
   }
 
-  private void loadEnvironmentConfiguration() {
+  private void loadConfiguration(Map<String, String> configuration) {
     Map<String, String> envDirectives = new HashMap<>();
-    System.getenv().entrySet()
+    configuration.entrySet()
       .stream()
       .filter(entry -> entry.getKey().startsWith("KRYO_SV_"))
       .forEach(entry -> {
