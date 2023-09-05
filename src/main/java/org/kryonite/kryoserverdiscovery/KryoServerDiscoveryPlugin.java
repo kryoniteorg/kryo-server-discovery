@@ -33,7 +33,7 @@ public class KryoServerDiscoveryPlugin {
   @Subscribe
   public void onInitialize(ProxyInitializeEvent event) {
     this.configurationDefaults.put("enable-join-listener", "true");
-    this.configurationDefaults.put("discovery-task-interval-ms", "1000");
+    this.configurationDefaults.put("discover-task-interval-ms", "1000");
     this.configurationDefaults.put("server-name-format", "k8s-%s");
     this.loadEnvironmentConfiguration();
 
@@ -41,7 +41,7 @@ public class KryoServerDiscoveryPlugin {
     this.configuration.forEach((k, v) -> log.info(String.format("%s: %s", k, v)));
 
     DefaultKubernetesClient kubernetesClient = new DefaultKubernetesClient();
-    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this), 1000, Long.parseLong(this.configuration.get("discovery-task-interval-ms")));
+    timer.scheduleAtFixedRate(new ServerDiscoveryTask(server, kubernetesClient, this.configuration), 1000, Long.parseLong(this.configuration.get("discover-task-interval-ms")));
 
     if (Boolean.parseBoolean(this.configuration.get("enable-join-listener"))) {
       server.getEventManager().register(this, new PlayerJoinListener(server));

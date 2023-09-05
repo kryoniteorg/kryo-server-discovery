@@ -21,7 +21,7 @@ public class ServerDiscoveryTask extends TimerTask {
 
   private final ProxyServer proxyServer;
   private final DefaultKubernetesClient kubernetesClient;
-  private final KryoServerDiscoveryPlugin plugin;
+  private final Map<String, String> configuration;
   private final Set<String> discoveredServers = new HashSet<>();
 
   @Override
@@ -80,7 +80,7 @@ public class ServerDiscoveryTask extends TimerTask {
           .map(Optional::get)
           .toList();
 
-        String serverName = String.format(this.plugin.getConfigEntry("server-name-format"), pod.getMetadata().getName());
+        String serverName = String.format(this.configuration.get("server-name-format"), pod.getMetadata().getName());
         // Probably a misconfiguration if there is more than one container with a minecraft port
         if (ports.size() == 1) {
           ContainerPort port = ports.get(0);
