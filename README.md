@@ -28,7 +28,7 @@ kryo-server-discovery can currently be configured using the following environmen
 | `KRYO_SV_DISCOVER_TASK_INTERVAL_MS` | 1000          | This is the interval between the times the plugin polls the k8s api to discover new servers.   |
 | `KRYO_SV_SERVER_NAME_FORMAT`        | %s            | Java format string allowing the prefixing or suffixing of the name of the discovered servers.  |
 
-## K8s Examples
+## Examples
 
 Namespace:
 
