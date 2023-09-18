@@ -6,12 +6,15 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.kryonite.kryoserverdiscovery.listener.PlayerJoinListener;
 import org.kryonite.kryoserverdiscovery.serverdiscovery.ServerDiscoveryTask;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.Timer;
 
 @Slf4j
 @Plugin(id = "kryoserverdiscovery", name = "Kryo Server Discovery", version = "1.0.0")
