@@ -30,7 +30,7 @@ public class KryoServerDiscoveryPlugin {
   static {
     configurationDefaults.put("enable-join-listener", "true");
     configurationDefaults.put("discover-task-interval-ms", "1000");
-    configurationDefaults.put("server-name-format", "k8s-%s");
+    configurationDefaults.put("server-name-format", "%s");
   }
 
   @Inject
